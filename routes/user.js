@@ -65,8 +65,8 @@ module.exports.action = [
   for (var i in request.body.payload.devices) {
     var id = request.body.payload.devices[i].id;
     try {
-
-        var capabilities = global.devices[id].setState(request.body.payload.devices[i].capabilities[0].state.value , request.body.payload.devices[i].capabilities[0].type, request.body.payload.devices[i].capabilities[0].state.instance);
+        var rel = request.body.payload.devices[i].capabilities[0].state.relative || false
+        var capabilities = global.devices[id].setState(request.body.payload.devices[i].capabilities[0].state.value , request.body.payload.devices[i].capabilities[0].type, request.body.payload.devices[i].capabilities[0].state.instance, rel);
            
     } catch (err) {
 

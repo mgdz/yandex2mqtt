@@ -30,9 +30,9 @@ class device {
 
 
 
-  setState(val, type, inst) {
+  setState(val, type, inst, rel) {
     var int;   
-    var topic; 
+    var topic;
     switch (inst) {
       case 'on':
           try {
@@ -63,7 +63,11 @@ class device {
             int = JSON.stringify(val);
             this.data.capabilities[this.findDevIndex(this.data.capabilities, type)].state.instance = inst;
             this.data.capabilities[this.findDevIndex(this.data.capabilities, type)].state.value = val;
-            topic = this.data.custom_data.mqtt[this.findDevIndex(this.data.custom_data.mqtt, inst)].set || false; 
+            if (rel) {
+              topic = this.data.custom_data.mqtt[this.findDevIndex(this.data.custom_data.mqtt, inst)].set + '/rel' || false;
+            } else {
+              topic = this.data.custom_data.mqtt[this.findDevIndex(this.data.custom_data.mqtt, inst)].set || false;
+            }
           } 
           catch (err) {              
             topic = false;
