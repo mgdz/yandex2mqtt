@@ -11,6 +11,7 @@ class device {
         mqtt: options.mqtt || [{}]
       },
       capabilities: options.capabilities,
+      properties: options.properties,
     }
     global.devices.push(this);
   }
