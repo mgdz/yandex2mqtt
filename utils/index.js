@@ -7,7 +7,7 @@
  * @return {String}
  * @api private
  */
-module.exports.getUid = function(length) {
+module.exports.getUid = function (length) {
   let uid = '';
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const charsLength = chars.length;

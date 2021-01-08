@@ -7,48 +7,48 @@ module.exports = {
         password: ''
     },
 
-//    https: {
-//        privateKey: '/mnt/data/root/node-key2.pem',
-//        certificate: '/mnt/data/root/munrexio.crt',
-//        port: 443
-//    },
+    //    https: {
+    //        privateKey: '/mnt/data/root/node-key2.pem',
+    //        certificate: '/mnt/data/root/munrexio.crt',
+    //        port: 443
+    //    },
     http: {
         host: '127.0.0.1',
         port: 1800
     },
 
     clients: [
-    {
-        id: '1',
-        name: 'Yandex',
-        clientId: 'yandex-smarthome12345',
-        clientSecret: 'secret12345',
-        isTrusted: false
+        {
+            id: '1',
+            name: 'Yandex',
+            clientId: 'yandex-smarthome12345',
+            clientSecret: 'secret12345',
+            isTrusted: false
         },
     ],
 
     users: [{
-            id: '1',
-            username: 'admin',
-            password: 'admin',
-            name: 'Administrator'
-        },
-        {
-            id: '2',
-            username: 'root',
-            password: 'root',
-            name: 'Administrator'
-        },
+        id: '1',
+        username: 'admin',
+        password: 'admin',
+        name: 'Administrator'
+    },
+    {
+        id: '2',
+        username: 'root',
+        password: 'root',
+        name: 'Administrator'
+    },
     ],
 
     devices: [
-    //_______________Первое устройство______________//
+        //_______________Первое устройство______________//
         {
             name: 'Свет',
             room: 'Комната',
             type: 'devices.types.light',
             mqtt: [
-                 {
+                {
                     type: 'on',
                     set: '/devices/yandex/controls/light1/on',
                     stat: '/devices/yandex/controls/light1'
@@ -114,17 +114,17 @@ module.exports = {
                 },
             ]
         },
-    //__________Конец первого устройства__________//
-    
+        //__________Конец первого устройства__________//
 
 
-    // ________ Второе устройство___________//
+
+        // ________ Второе устройство___________//
         {
             name: 'Телевизор',
             room: 'Комната',
             type: 'devices.types.media_device.tv',
             mqtt: [
-                 {
+                {
                     type: 'on',
                     set: '/devices/yandex/controls/light6/on',
                     stat: '/devices/yandex/controls/light6'
@@ -197,17 +197,17 @@ module.exports = {
                 },
             ]
         },
-    //_________конец второго устройства_________//
+        //_________конец второго устройства_________//
 
 
-    //______Третье устройство____//
+        //______Третье устройство____//
 
         {
             name: 'Кондиционер',
             room: 'Комната',
             type: 'devices.types.thermostat.ac',
             mqtt: [
-                 {
+                {
                     type: 'on',
                     set: '/devices/yandex/controls/light9/on',
                     stat: '/devices/yandex/controls/light9'
@@ -260,7 +260,7 @@ module.exports = {
                     retrievable: true,
                     parameters: {
                         instance: 'thermostat',
-                        modes:  [
+                        modes: [
                             {
                                 value: 'heat'
                             },
@@ -291,7 +291,7 @@ module.exports = {
                     retrievable: true,
                     parameters: {
                         instance: 'fan_speed',
-                        modes:  [
+                        modes: [
                             {
                                 value: 'auto'
                             },
@@ -314,15 +314,15 @@ module.exports = {
                 },
             ]
         },
-    //____конец третьего устройства___//
+        //____конец третьего устройства___//
 
-    //_______________Устройство с HSV______________//
+        //_______________Устройство с HSV______________//
         {
             name: 'Лампочка',
             room: 'Комната',
             type: 'devices.types.light',
             mqtt: [
-                 {
+                {
                     type: 'on',
                     set: '/devices/yandex/controls/light13/on',
                     stat: '/devices/yandex/controls/light13'
@@ -351,12 +351,12 @@ module.exports = {
                     },
                     state: {
                         instance: 'hsv',
-                        value: {h: 0, s: 0, v: 0}
+                        value: { h: 0, s: 0, v: 0 }
                     },
                 },
             ]
         },
-    //__________Конец устройства__________//
+        //__________Конец устройства__________//
 
 
     ]

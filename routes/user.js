@@ -21,67 +21,67 @@ module.exports.ping = [
 module.exports.devices = [
   passport.authenticate('bearer', { session: true }),
   (request, response) => {
-  var r = {
-    request_id: "1",
-    payload: {
-      user_id: "1",
-      devices: []
+    var r = {
+      request_id: "1",
+      payload: {
+        user_id: "1",
+        devices: []
+      }
+    };
+    for (var i in global.devices) {
+      r.payload.devices.push(global.devices[i].getInfo());
     }
-  };
-  for (var i in global.devices) {
-    r.payload.devices.push(global.devices[i].getInfo());
-  }
-  
-  response.status(200);
-  response.send(r);
+
+    response.status(200);
+    response.send(r);
   }
 ];
 
 module.exports.query = [
   passport.authenticate('bearer', { session: true }),
   (request, response) => {
-  const r = {
-    request_id: '1',
-    payload: {
-      devices: []
+    const r = {
+      request_id: '1',
+      payload: {
+        devices: []
+      }
+    };
+    for (let i in request.body.devices) {
+      r.payload.devices.push(global.devices[request.body.devices[i].id].getInfo());
     }
-  };
-  for (let i in request.body.devices) {
-    r.payload.devices.push(global.devices[request.body.devices[i].id].getInfo());
-  }
-  response.send(r);
+    response.send(r);
   }
 ];
 
 module.exports.action = [
   passport.authenticate('bearer', { session: true }),
   (request, response) => {
-  var r = {
-    request_id: "1",
-    payload: {
-      devices: []
-    }
-  };
-  for (var i in request.body.payload.devices) {
-    var id = request.body.payload.devices[i].id;
-    try {
+    var r = {
+      request_id: "1",
+      payload: {
+        devices: []
+      }
+    };
+    for (var i in request.body.payload.devices) {
+      var id = request.body.payload.devices[i].id;
+      try {
         var rel = request.body.payload.devices[i].capabilities[0].state.relative || false
-        var capabilities = global.devices[id].setState(request.body.payload.devices[i].capabilities[0].state.value , request.body.payload.devices[i].capabilities[0].type, request.body.payload.devices[i].capabilities[0].state.instance, rel);
-           
-    } catch (err) {
+        var capabilities = global.devices[id].setState(request.body.payload.devices[i].capabilities[0].state.value, request.body.payload.devices[i].capabilities[0].type, request.body.payload.devices[i].capabilities[0].state.instance, rel);
 
-        var capabilities = global.devices[id].setState(true , request.body.payload.devices[i].capabilities[0].type, 'mute');
+      } catch (err) {
+
+        var capabilities = global.devices[id].setState(true, request.body.payload.devices[i].capabilities[0].type, 'mute');
+      }
+
+      r.payload.devices.push({ id: id, capabilities: capabilities });
     }
-    
-    r.payload.devices.push({ id: id, capabilities: capabilities });
-  }
-  response.send(r);
+    response.send(r);
   }
 ];
 
 module.exports.unlink = [
   passport.authenticate('bearer', { session: true }),
   (request, response) => {
-  response.status(200);
+    response.status(200);
   }
 ];

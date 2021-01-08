@@ -158,7 +158,7 @@ if (statPairs) {
                     } catch (err) {
                         console.log(err);
                     }
-                    break;        
+                    break;
                 case 'thermostat':
                     try {
                         devindx = findDevIndex(device.data.capabilities, 'devices.capabilities.mode')
@@ -176,7 +176,7 @@ if (statPairs) {
                     } catch (err) {
                         console.log(err);
                     }
-                    break;    
+                    break;
                 case 'brightness':
                     try {
                         devindx = findDevIndex(device.data.capabilities, 'devices.capabilities.range')
@@ -212,7 +212,7 @@ if (statPairs) {
                     } catch (err) {
                         console.log(err);
                     }
-                    break;                        
+                    break;
                 default:
                     console.log('Unknown topic Type: ' + statPairs[matchedDeviceId].topicType);
             };

@@ -1,6 +1,6 @@
 'use strict';
 const config = require('../config');
-const clients = config.clients; 
+const clients = config.clients;
 
 module.exports.findById = (id, done) => {
   for (let i = 0, len = clients.length; i < len; i++) {

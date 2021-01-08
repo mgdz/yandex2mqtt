@@ -169,14 +169,14 @@ module.exports.authorization = [
     });
   }, (client, user, done) => {
     // Check if grant request qualifies for immediate approval
-    
+
     // Auto-approve
     if (client.isTrusted) return done(null, true);
-    
+
     db.accessTokens.findByUserIdAndClientId(user.id, client.clientId, (error, token) => {
       // Auto-approve
       if (token) return done(null, true);
-      
+
       // Otherwise ask user
       return done(null, false);
     });
