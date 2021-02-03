@@ -1,12 +1,15 @@
-'use strict';
+// 'use strict';
 
 const passport = require('passport');
 
 module.exports.info = [
   passport.authenticate('bearer', { session: true }),
   (request, response) => {
-    response.json({ user_id: request.user.id, name: request.user.name, scope: request.authInfo.scope });
-  }
+    response.json({
+      user_id: request.user.id,
+      name: request.user.name,
+      scope: request.authInfo.scope });
+  },
 ];
 
 
@@ -15,26 +18,26 @@ module.exports.ping = [
   (request, response) => {
     response.status(200);
     response.send('OK');
-  }
+  },
 ];
 
 module.exports.devices = [
   passport.authenticate('bearer', { session: true }),
   (request, response) => {
-    var r = {
-      request_id: "1",
+    const r = {
+      request_id: '1',
       payload: {
-        user_id: "1",
-        devices: []
-      }
+        user_id: '1',
+        devices: [],
+      },
     };
-    for (var i in global.devices) {
+    for (const i in global.devices) {
       r.payload.devices.push(global.devices[i].getInfo());
     }
 
     response.status(200);
     response.send(r);
-  }
+  },
 ];
 
 module.exports.query = [
@@ -43,45 +46,51 @@ module.exports.query = [
     const r = {
       request_id: '1',
       payload: {
-        devices: []
-      }
+        devices: [],
+      },
     };
-    for (let i in request.body.devices) {
+    for (const i in request.body.devices) {
       r.payload.devices.push(global.devices[request.body.devices[i].id].getInfo());
     }
     response.send(r);
-  }
+  },
 ];
 
 module.exports.action = [
   passport.authenticate('bearer', { session: true }),
   (request, response) => {
-    var r = {
-      request_id: "1",
+    const r = {
+      request_id: '1',
       payload: {
-        devices: []
-      }
+        devices: [],
+      },
     };
-    for (var i in request.body.payload.devices) {
-      var id = request.body.payload.devices[i].id;
+    for (const i in request.body.payload.devices) {
+      const id = request.body.payload.devices[i].id;
+      let rel;
+      let capabilities;
       try {
-        var rel = request.body.payload.devices[i].capabilities[0].state.relative || false
-        var capabilities = global.devices[id].setState(request.body.payload.devices[i].capabilities[0].state.value, request.body.payload.devices[i].capabilities[0].type, request.body.payload.devices[i].capabilities[0].state.instance, rel);
-
+        rel = request.body.payload.devices[i].capabilities[0].state.relative || false;
+        capabilities = global.devices[id].setState(
+          request.body.payload.devices[i].capabilities[0].state.value,
+          request.body.payload.devices[i].capabilities[0].type,
+          request.body.payload.devices[i].capabilities[0].state.instance,
+          rel);
       } catch (err) {
-
-        var capabilities = global.devices[id].setState(true, request.body.payload.devices[i].capabilities[0].type, 'mute');
+        capabilities = global.devices[id].setState(
+          true,
+          request.body.payload.devices[i].capabilities[0].type,
+          'mute');
       }
-
-      r.payload.devices.push({ id: id, capabilities: capabilities });
+      r.payload.devices.push({ id, capabilities });
     }
     response.send(r);
-  }
+  },
 ];
 
 module.exports.unlink = [
   passport.authenticate('bearer', { session: true }),
   (request, response) => {
     response.status(200);
-  }
+  },
 ];
