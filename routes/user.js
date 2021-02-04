@@ -27,7 +27,7 @@ module.exports.devices = [
     const r = {
       request_id: request.request_id,
       payload: {
-        user_id: global.users[0].id,
+        user_id: request.user.id,
         devices: [],
       },
     };
@@ -43,14 +43,14 @@ module.exports.devices = [
 module.exports.query = [
   passport.authenticate('bearer', { session: true }),
   (request, response) => {
-    console.log(request);
     const r = {
-      request_id: request.user_id,
+      request_id: request.request_id,
       payload: {
         devices: [],
       },
     };
     for (const i in request.body.devices) {
+      console.log(request.body.devices[i]);
       r.payload.devices.push(global.devices[request.body.devices[i].id].getInfo());
     }
     response.send(r);
@@ -61,7 +61,7 @@ module.exports.action = [
   passport.authenticate('bearer', { session: true }),
   (request, response) => {
     const r = {
-      request_id: request.user_id,
+      request_id: request.request_id,
       payload: {
         devices: [],
       },
