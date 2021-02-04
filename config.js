@@ -399,7 +399,7 @@ module.exports = {
         retrievable: true,
         parameters: {
           instance: 'temperature',
-          unit: 'unit.percent',
+          unit: 'unit.temperature.celsius',
         },
         state: {
           instance: 'temperature',
