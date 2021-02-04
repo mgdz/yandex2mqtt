@@ -25,9 +25,9 @@ module.exports.devices = [
   passport.authenticate('bearer', { session: true }),
   (request, response) => {
     const r = {
-      request_id: '1',
+      request_id: request.request_id,
       payload: {
-        user_id: '1',
+        user_id: global.users[0].id,
         devices: [],
       },
     };
@@ -43,8 +43,9 @@ module.exports.devices = [
 module.exports.query = [
   passport.authenticate('bearer', { session: true }),
   (request, response) => {
+    console.log(request);
     const r = {
-      request_id: '1',
+      request_id: request.user_id,
       payload: {
         devices: [],
       },
@@ -60,22 +61,22 @@ module.exports.action = [
   passport.authenticate('bearer', { session: true }),
   (request, response) => {
     const r = {
-      request_id: '1',
+      request_id: request.user_id,
       payload: {
         devices: [],
       },
     };
     for (const i in request.body.payload.devices) {
       const id = request.body.payload.devices[i].id;
-      let rel;
+      let relative;
       let capabilities;
       try {
-        rel = request.body.payload.devices[i].capabilities[0].state.relative || false;
+        relative = request.body.payload.devices[i].capabilities[0].state.relative || false;
         capabilities = global.devices[id].setState(
           request.body.payload.devices[i].capabilities[0].state.value,
           request.body.payload.devices[i].capabilities[0].type,
           request.body.payload.devices[i].capabilities[0].state.instance,
-          rel);
+          relative);
       } catch (err) {
         capabilities = global.devices[id].setState(
           true,
