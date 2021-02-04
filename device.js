@@ -24,7 +24,7 @@ class device {
     return this.data;
   }
 
-  findDevIndex(arr, elem) {
+  static findDevIndex(arr, elem) {
     for (let i = 0; i < arr.length; i++) {
       if (arr[i].type === elem) {
         return i;
@@ -34,24 +34,24 @@ class device {
   }
 
   // setState(id, val, type, inst, rel) {
-  setState(value, type, inst, rel) {
+  setState(value, type, instance, isRelative) {
     let int;
     let topic;
     try {
       int = JSON.stringify(value);
       this.data.capabilities[
         this.findDevIndex(this.data.capabilities, type)]
-        .state.instance = inst;
+        .state.instance = instance;
       this.data.capabilities[
         this.findDevIndex(this.data.capabilities, type)]
         .state.value = value;
-      if (rel) {
+      if (isRelative) {
         topic = `${this.data.custom_data.mqtt[
-          this.findDevIndex(this.data.custom_data.mqtt, inst)]
-          .set}/rel` || false;
+          this.findDevIndex(this.data.custom_data.mqtt, instance)]
+          .set}/relative` || false;
       } else {
         topic = this.data.custom_data.mqtt[
-          this.findDevIndex(this.data.custom_data.mqtt, inst)]
+          this.findDevIndex(this.data.custom_data.mqtt, instance)]
           .set || false;
       }
     } catch (err) {
@@ -66,7 +66,7 @@ class device {
       {
         type,
         state: {
-          instance: inst,
+          instance,
           action_result: {
             status: 'DONE',
           },
