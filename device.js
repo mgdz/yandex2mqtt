@@ -20,8 +20,42 @@ class device {
     global.devices.push(this);
   }
 
+  
+  // !!!FIXME!!!
+  // 
   getInfo() {
-    return this.data;
+    let properties = [];
+    let property = {
+      type: this.data.properties[0].type,
+      retrievable: this.data.properties[0].retrievable,
+      parameters: this.data.properties[0].parameters,
+    };
+    properties.push(property);
+    this.i = {
+      id: this.data.id,
+      name: this.data.name,
+      description: this.data.description,
+      room: this.data.room,
+      type: this.data.type,
+      custom_data: this.data.custom_data,
+      properties,
+    };
+    return this.i;
+  }
+
+// !!!FIXME!!!
+  getState() {
+    let properties = [];
+    let property = {
+      type: this.data.properties[0].type,
+      state: this.data.properties[0].state,
+    };
+    properties.push(property);
+    this.s = {
+      id: this.data.id,
+      properties,
+    };
+    return this.s;
   }
 
   static findDevIndex(arr, elem) {

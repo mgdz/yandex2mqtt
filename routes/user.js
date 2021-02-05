@@ -25,7 +25,7 @@ module.exports.devices = [
   passport.authenticate('bearer', { session: true }),
   (request, response) => {
     const r = {
-      request_id: request.request_id,
+      request_id: request.headers['x-request-id'],
       payload: {
         user_id: request.user.id,
         devices: [],
@@ -44,15 +44,18 @@ module.exports.query = [
   passport.authenticate('bearer', { session: true }),
   (request, response) => {
     const r = {
-      request_id: request.request_id,
+      request_id: request.headers['x-request-id'],
       payload: {
         devices: [],
       },
     };
+// !!!
     for (const i in request.body.devices) {
-      console.log(request.body.devices[i]);
-      r.payload.devices.push(global.devices[request.body.devices[i].id].getInfo());
+      r.payload.devices.push(global.devices[i].getState());
+//      r.payload.devices.push(global.devices[request.body.devices[i].id].getInfo());
     }
+    console.log(JSON.stringify(request.body));
+    console.log(JSON.stringify(r));
     response.send(r);
   },
 ];
@@ -61,7 +64,7 @@ module.exports.action = [
   passport.authenticate('bearer', { session: true }),
   (request, response) => {
     const r = {
-      request_id: request.request_id,
+      request_id: request.headers['x-request-id'],
       payload: {
         devices: [],
       },
