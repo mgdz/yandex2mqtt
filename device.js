@@ -1,17 +1,13 @@
 /* eslint-disable no-console */
 class device {
   constructor(options) {
-    // var id = global.devices.length;
-    // const userid = global.devices.userid;
     this.data = {
-      // id: String(id),
       id: options.id,
       name: options.name || options.id,
       description: options.description || '',
       room: options.room || '',
       type: options.type || 'devices.types.light',
       custom_data: {
-        // userid: userid,
         mqtt: options.mqtt || [{}],
       },
       capabilities: options.capabilities,
@@ -24,38 +20,65 @@ class device {
   //
   getInfo() {
     const properties = [];
-    for(let i in this.data.properties) {
-      const property = {
-        type: this.data.properties[i].type,
-        retrievable: this.data.properties[i].retrievable,
-        parameters: this.data.properties[i].parameters,
-      };
-      properties.push(property);
+    const capabilities = [];
+    if (Array.isArray(this.data.properties) && this.data.properties.length) {
+      for (let i in this.data.properties) {
+        const property = {
+          type: this.data.properties[i].type,
+          retrievable: this.data.properties[i].retrievable,
+          parameters: this.data.properties[i].parameters,
+        };
+        properties.push(property);
+      }
     }
-    this.i = {
+    if (Array.isArray(this.data.capabilities) && this.data.capabilities.length) {
+      for (let i in this.data.capabilities) {
+        const capability = {
+          type: this.data.capabilities[i].type,
+          retrievable: this.data.capabilities[i].retrievable,
+          parameters: this.data.capabilities[i].parameters,
+        };
+        capabilities.push(capability);
+      }
+    }
+    this.deviceInfo = {
       id: this.data.id,
       name: this.data.name,
       description: this.data.description,
       room: this.data.room,
       type: this.data.type,
       custom_data: this.data.custom_data,
+      capabilities,
       properties,
     };
-    return this.i;
+    return this.deviceInfo;
   }
 
 // !!!FIXME!!!
   getState() {
     const properties = [];
-    for (let i in this.data.properties) {
-      const property = {
-        type: this.data.properties[i].type,
-        state: this.data.properties[i].state,
-      };
-      properties.push(property);
+    const capabilities = [];
+    if (Array.isArray(this.data.properties) && this.data.properties.length) {
+      for (let i in this.data.properties) {
+        const property = {
+          type: this.data.properties[i].type,
+          state: this.data.properties[i].state,
+        };
+        properties.push(property);
+      }
+    }
+    if (Array.isArray(this.data.capabilities) && this.data.capabilities.length) {
+      for (let i in this.data.capabilities) {
+        const capability = {
+          type: this.data.capability[i].type,
+          state: this.data.capability[i].state,
+        };
+        properties.push(capability);
+      }
     }
     this.s = {
       id: this.data.id,
+      capabilities,
       properties,
     };
     return this.s;
