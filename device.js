@@ -20,17 +20,18 @@ class device {
     global.devices.push(this);
   }
 
-  
   // !!!FIXME!!!
-  // 
+  //
   getInfo() {
-    let properties = [];
-    let property = {
-      type: this.data.properties[0].type,
-      retrievable: this.data.properties[0].retrievable,
-      parameters: this.data.properties[0].parameters,
-    };
-    properties.push(property);
+    const properties = [];
+    for(let i in this.data.properties) {
+      const property = {
+        type: this.data.properties[i].type,
+        retrievable: this.data.properties[i].retrievable,
+        parameters: this.data.properties[i].parameters,
+      };
+      properties.push(property);
+    }
     this.i = {
       id: this.data.id,
       name: this.data.name,
@@ -45,12 +46,14 @@ class device {
 
 // !!!FIXME!!!
   getState() {
-    let properties = [];
-    let property = {
-      type: this.data.properties[0].type,
-      state: this.data.properties[0].state,
-    };
-    properties.push(property);
+    const properties = [];
+    for (let i in this.data.properties) {
+      const property = {
+        type: this.data.properties[i].type,
+        state: this.data.properties[i].state,
+      };
+      properties.push(property);
+    }
     this.s = {
       id: this.data.id,
       properties,

@@ -405,7 +405,32 @@ module.exports = {
           instance: 'temperature',
           value: -7.3,
         },
-      }],
+      },
+      {
+        type: 'devices.properties.float',
+        retrievable: true,
+        parameters: {
+          instance: 'humidity',
+          unit: 'unit.percent',
+        },
+        state: {
+          instance: 'humidity',
+          value: 16,
+        },
+      },
+      {
+        type: 'devices.properties.float',
+        retrievable: true,
+        parameters: {
+          instance: 'battery_level',
+          unit: 'unit.percent',
+        },
+        state: {
+          instance: 'battery_level',
+          value: 63,
+        },
+      },
+      ],
     },
     //__________Конец датчика__________//
   ],
