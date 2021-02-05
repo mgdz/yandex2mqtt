@@ -73,7 +73,7 @@ class device {
           type: this.data.capabilities[i].type,
           state: this.data.capabilities[i].state,
         };
-        properties.push(capability);
+        capabilities.push(capability);
       }
     }
     this.s = {
