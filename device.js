@@ -70,8 +70,8 @@ class device {
     if (Array.isArray(this.data.capabilities) && this.data.capabilities.length) {
       for (let i in this.data.capabilities) {
         const capability = {
-          type: this.data.capability[i].type,
-          state: this.data.capability[i].state,
+          type: this.data.capabilities[i].type,
+          state: this.data.capabilities[i].state,
         };
         properties.push(capability);
       }
