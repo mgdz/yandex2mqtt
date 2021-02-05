@@ -403,7 +403,7 @@ module.exports = {
         },
         state: {
           instance: 'temperature',
-          value: '23.1',
+          value: -7.3,
         },
       }],
     },
