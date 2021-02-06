@@ -43,78 +43,30 @@ module.exports = {
 
   devices: [
         // _______________Первое устройство______________//
-    // {
-    //   name: 'Свет',
-    //   room: 'Комната',
-    //   type: 'devices.types.light',
-    //   mqtt: [
-    //     {
-    //       type: 'on',
-    //       set: '/devices/yandex/controls/light1/on',
-    //       stat: '/devices/yandex/controls/light1',
-    //     },
-    //     {
-    //       type: 'rgb',
-    //       set: '/devices/yandex/controls/light3/on',
-    //       stat: '/devices/yandex/controls/light3',
-    //     },
-    //     {
-    //       type: 'temperature_k',
-    //       set: '/devices/yandex/controls/light4/on',
-    //       stat: '/devices/yandex/controls/light4',
-    //     },
-    //     {
-    //       type: 'brightness',
-    //       set: '/devices/yandex/controls/light5/on',
-    //       stat: '/devices/yandex/controls/light5',
-    //     },
-    //   ],
-    //   capabilities: [
-    //     {
-    //       type: 'devices.capabilities.on_off',
-    //       retrievable: true,
-    //       state: {
-    //         instance: 'on',
-    //         value: true,
-    //       },
-    //     },
-    //     {
-    //       type: 'devices.capabilities.range',
-    //       retrievable: true,
+    {
+      name: 'Свет',
+      room: 'Мастерская',
+      type: 'devices.types.light',
+      mqtt: [
+        {
+          type: 'on',
+          set: 'dev/yandex/1/command/light/power',
+          stat: 'dev/yandex/1/state/light/power',
+        },
 
-    //       parameters: {
-    //         instance: 'brightness',
-    //         unit: 'unit.percent',
-    //         range: {
-    //           min: 0,
-    //           max: 100,
-    //           precision: 1,
-    //         },
-    //       },
-    //       state: {
-    //         instance: 'brightness',
-    //         value: 10,
-    //       },
-    //     },
-    //     {
-    //       type: 'devices.capabilities.color_setting',
-    //       retrievable: true,
-    //       parameters: {
-    //         color_model: 'rgb',
-    //         temperature_k: {
-    //           min: 2000,
-    //           max: 8500,
-    //           precision: 500,
-    //         },
-    //       },
-    //       state: {
-    //         instance: 'rgb',
-    //         value: 0,
-    //       },
-    //     },
-    //   ],
-    // },
-    //     // __________Конец первого устройства__________//
+      ],
+      capabilities: [
+        {
+          type: 'devices.capabilities.on_off',
+          retrievable: true,
+          state: {
+            instance: 'on',
+            value: true,
+          },
+        },
+      ],
+    },
+         // __________Конец первого устройства__________//
 
 
     //     // ________ Второе устройство___________//
@@ -367,9 +319,28 @@ module.exports = {
       // TODO: remove mqtt config from device.
       mqtt: [
         {
-          type: 'btemperature',
-          stat: 'dev/yandex/state/temperature',
+          type: 'temperature',
+          stat: 'dev/yandex/0/state/temperature',
         },
+        {
+          type: 'humidity',
+          stat: 'dev/yandex/0/state/humidity',
+        },
+        {
+          type: 'battery_level',
+          stat: 'dev/yandex/0/state/battery_level',
+        },
+        {
+          type: 'on',
+          set: 'dev/yandex/0/command/light/power',
+          stat: 'dev/yandex/0/state/light/power',
+        },
+        {
+          type: 'hsv',
+          set: 'dev/yandex/0/command/light/hsv',
+          stat: 'dev/yandex/0/state/light/hsv',
+        },
+
       ],
       capabilities: [
         {

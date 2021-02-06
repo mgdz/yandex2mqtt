@@ -51,7 +51,13 @@ module.exports.query = [
     };
 // !!!
     for (const i in request.body.devices) {
-      r.payload.devices.push(global.devices[i].getState());
+      for (const j in global.devices) {
+        if (global.devices[j].id === request.body.devices[i]) {
+          r.payload.devices.push(global.devices[j].getState());
+        }
+      }
+//      if (global.devices[i].id in request.body.devices.id) { /**/ }
+//      r.payload.devices.push(global.devices[i].getState());
 //      r.payload.devices.push(global.devices[request.body.devices[i].id].getInfo());
     }
     console.log(JSON.stringify(request.body));
