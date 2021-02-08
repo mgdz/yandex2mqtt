@@ -1,6 +1,7 @@
 // 'use strict';
 
 const passport = require('passport');
+const device = require('../device');
 
 module.exports.info = [
   passport.authenticate('bearer', { session: true }),
@@ -34,10 +35,6 @@ module.exports.devices = [
     global.devices.forEach((device) => {
       r.payload.devices.push(device.getInfo());
     });
-//    for (const i in global.devices) {
-//      r.payload.devices.push(global.devices[i].getInfo());
-//    }
-
     response.status(200);
     response.send(r);
   },
@@ -53,22 +50,23 @@ module.exports.query = [
       },
     };
 // !!!
-    for (const i in request.body.devices) {
-//      const device = global.devices.find(device => device.data.id === request.body.devices[i].id);
-//      if (device) {
-//        r.payload.devices.push(device.getState());
-//      }
-      for (const j in global.devices) {
-        if (global.devices[j].id === request.body.devices[i].id) {
-          r.payload.devices.push(global.devices[j].getState());
+    global.devices.forEach((dev) => {
+      for (const j in request.body.devices) {
+        if (dev.data.id === request.body.devices[j].id) {
+          r.payload.devices.push(dev.getState());
         }
       }
-//      if (global.devices[i].id in request.body.devices.id) { /**/ }
-//      r.payload.devices.push(global.devices[i].getState());
-//      r.payload.devices.push(global.devices[request.body.devices[i].id].getInfo());
-    }
+    });
+//    for (const i in request.body.devices) {
+//      for (const j in global.devices) {
+//        if (global.devices[j].id === request.body.devices[i].id) {
+//          r.payload.devices.push(global.devices[j].getState());          
+//        }
+//      }
+//    }
     console.log(JSON.stringify(request.body));
     console.log(JSON.stringify(r));
+    response.status(200);
     response.send(r);
   },
 ];
