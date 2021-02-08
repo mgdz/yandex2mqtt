@@ -82,8 +82,8 @@ module.exports.action = [
       try {
         relative = request.body.payload.devices[i].capabilities[0].state.relative || false;
         for (const device in global.devices) {
-          if (global.devices[device].id === request.body.devices[i].id) {
-            capabilities = global.devices[device].setState(
+          if (global.devices.data[device].id === id) {
+            capabilities = global.devices.data[device].setState(
               request.body.payload.devices[i].capabilities[0].state.value,
               request.body.payload.devices[i].capabilities[0].type,
               request.body.payload.devices[i].capabilities[0].state.instance,
