@@ -52,7 +52,7 @@ module.exports.query = [
 // !!!
     for (const i in request.body.devices) {
       for (const j in global.devices) {
-        if (global.devices[j].id === request.body.devices[i]) {
+        if (global.devices[j].id === request.body.devices[i].id) {
           r.payload.devices.push(global.devices[j].getState());
         }
       }
@@ -81,16 +81,17 @@ module.exports.action = [
       let capabilities;
       try {
         relative = request.body.payload.devices[i].capabilities[0].state.relative || false;
-        capabilities = global.devices[id].setState(
-          request.body.payload.devices[i].capabilities[0].state.value,
-          request.body.payload.devices[i].capabilities[0].type,
-          request.body.payload.devices[i].capabilities[0].state.instance,
-          relative);
+        for (const device in global.devices) {
+          if (global.devices[device].id === request.body.devices[i].id) {
+            capabilities = global.devices[device].setState(
+              request.body.payload.devices[i].capabilities[0].state.value,
+              request.body.payload.devices[i].capabilities[0].type,
+              request.body.payload.devices[i].capabilities[0].state.instance,
+              relative);
+          }
+        }
       } catch (err) {
-        capabilities = global.devices[id].setState(
-          true,
-          request.body.payload.devices[i].capabilities[0].type,
-          'mute');
+        console.log(err);
       }
       r.payload.devices.push({ id, capabilities });
     }
