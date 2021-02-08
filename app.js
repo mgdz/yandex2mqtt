@@ -31,9 +31,9 @@ if (config.devices) {
 }
 
 const client = mqtt.connect(`mqtt://${config.mqtt.host}`, {
-  port: config.mqtt.port,
-  username: config.mqtt.user,
-  password: config.mqtt.password,
+  port: config.mqtt.port || process.env.MQTT_PORT,
+  username: config.mqtt.user || process.env.MQTT_USER,
+  password: config.mqtt.password || process.env.MQTT_PASSWORD,
 });
 
 app.engine('ejs', ejs.__express);
