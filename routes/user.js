@@ -31,9 +31,12 @@ module.exports.devices = [
         devices: [],
       },
     };
-    for (const i in global.devices) {
-      r.payload.devices.push(global.devices[i].getInfo());
-    }
+    global.devices.forEach((device) => {
+      r.payload.devices.push(device.getInfo());
+    });
+//    for (const i in global.devices) {
+//      r.payload.devices.push(global.devices[i].getInfo());
+//    }
 
     response.status(200);
     response.send(r);
