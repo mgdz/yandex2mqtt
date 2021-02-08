@@ -50,13 +50,19 @@ module.exports.query = [
       },
     };
 // !!!
-    global.devices.forEach((dev) => {
-      for (const j in request.body.devices) {
-        if (dev.data.id === request.body.devices[j].id) {
-          r.payload.devices.push(dev.getState());
-        }
+    request.body.devices.forEach((requestedDevice) => {
+      const device = global.devices.find(device => device.data.id === requestedDevice.id);
+      if (device) {
+        r.payload.devices.push(device.getState());
       }
-    });
+    });    
+//    global.devices.forEach((dev) => {
+//      for (const j in request.body.devices) {
+//        if (dev.data.id === request.body.devices[j].id) {
+//          r.payload.devices.push(dev.getState());
+//        }
+//      }
+//    });
 //    for (const i in request.body.devices) {
 //      for (const j in global.devices) {
 //        if (global.devices[j].id === request.body.devices[i].id) {
