@@ -44,6 +44,7 @@ module.exports = {
   devices: [
         // _______________Первое устройство______________//
     {
+      id: 'd994c7c1-bd8c-4ea4-a445-bcdbb59b5abf',
       name: 'Свет',
       room: 'Мастерская',
       type: 'devices.types.light',
