@@ -80,7 +80,7 @@ module.exports.action = [
       try {
         relative = request.body.payload.devices[i].capabilities[0].state.relative || false;
         for (const device in global.devices) {
-          if (global.devices[device].id === id) {
+          if (global.devices[device].data.id === id) {
             capabilities = global.devices[device].setState(
               request.body.payload.devices[i].capabilities[0].state.value,
               request.body.payload.devices[i].capabilities[0].type,
