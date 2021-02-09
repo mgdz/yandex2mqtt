@@ -84,7 +84,7 @@ class device {
     return this.s;
   }
 
-  static findDevIndex(arr, elem) {
+  findDevIndex(arr, elem) {
     for (let i = 0; i < arr.length; i++) {
       if (arr[i].type === elem) {
         return i;
