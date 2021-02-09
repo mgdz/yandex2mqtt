@@ -1,7 +1,8 @@
+/* eslint-disable no-console */
 // 'use strict';
 
 const passport = require('passport');
-const device = require('../device');
+// const device = require('../device');
 
 module.exports.info = [
   passport.authenticate('bearer', { session: true }),
@@ -55,21 +56,7 @@ module.exports.query = [
       if (device) {
         r.payload.devices.push(device.getState());
       }
-    });    
-//    global.devices.forEach((dev) => {
-//      for (const j in request.body.devices) {
-//        if (dev.data.id === request.body.devices[j].id) {
-//          r.payload.devices.push(dev.getState());
-//        }
-//      }
-//    });
-//    for (const i in request.body.devices) {
-//      for (const j in global.devices) {
-//        if (global.devices[j].id === request.body.devices[i].id) {
-//          r.payload.devices.push(global.devices[j].getState());          
-//        }
-//      }
-//    }
+    });
     console.log(JSON.stringify(request.body));
     console.log(JSON.stringify(r));
     response.status(200);
@@ -106,6 +93,7 @@ module.exports.action = [
       }
       r.payload.devices.push({ id, capabilities });
     }
+    console.log(JSON.stringify(r.payload));
     response.send(r);
   },
 ];
