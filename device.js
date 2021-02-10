@@ -94,7 +94,7 @@ class device {
   }
 
   // setState(id, val, type, inst, rel) {
-  setState(value, type, instance, isRelative) {
+  setState(type, value, instance, isRelative) {
     let int;
     let topic;
     try {
