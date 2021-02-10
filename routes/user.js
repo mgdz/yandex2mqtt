@@ -73,6 +73,7 @@ module.exports.action = [
         devices: [],
       },
     };
+    console.log(JSON.stringify(request.body));
     request.body.payload.devices.forEach((requestedDevice) => {
       let capabilities;
       const id = requestedDevice.id;
@@ -83,7 +84,7 @@ module.exports.action = [
               requestedDevice.capabilities[0].type,
               requestedDevice.capabilities[0].state.value,
               requestedDevice.capabilities[0].state.instance,
-//              requestedDevice.capabilities[0].state.relative || false,
+              requestedDevice.capabilities[0].state.relative || false,
             );
             console.log(JSON.stringify(capabilities));
           }
