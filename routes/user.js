@@ -83,7 +83,7 @@ module.exports.action = [
               requestedDevice.capabilities[0].type,
               requestedDevice.capabilities[0].state.value,
               requestedDevice.capabilities[0].state.instance,
-              requestedDevice.capabilities[0].state.relative || false,
+//              requestedDevice.capabilities[0].state.relative || false,
             );
             console.log(JSON.stringify(capabilities));
           }
