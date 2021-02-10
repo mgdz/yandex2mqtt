@@ -85,6 +85,7 @@ module.exports.action = [
               requestedDevice.capabilities[0].state.instance,
               requestedDevice.capabilities[0].state.relative || false,
             );
+            console.log(JSON.stringify(capabilities));
           }
         });
       } catch (err) {
