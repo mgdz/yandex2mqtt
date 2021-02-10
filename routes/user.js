@@ -2,7 +2,6 @@
 // 'use strict';
 
 const passport = require('passport');
-// const device = require('../device');
 
 module.exports.info = [
   passport.authenticate('bearer', { session: true }),
@@ -13,7 +12,6 @@ module.exports.info = [
       scope: request.authInfo.scope });
   },
 ];
-
 
 module.exports.ping = [
   passport.authenticate('bearer', { session: true }),
@@ -52,7 +50,7 @@ module.exports.query = [
     };
 // !!!
     request.body.devices.forEach((requestedDevice) => {
-      const device = global.devices.find(device => device.data.id === requestedDevice.id);
+      const device = global.devices.find(myDevice => myDevice.data.id === requestedDevice.id);
       if (device) {
         r.payload.devices.push(device.getState());
       }
@@ -97,30 +95,6 @@ module.exports.action = [
     console.log(JSON.stringify(r.payload));
     response.status(200);
     response.send(r);
-  /*
-    for (const i in request.body.payload.devices) {
-      const id = request.body.payload.devices[i].id;
-      let relative;
-      let capabilities;
-      try {
-        relative = request.body.payload.devices[i].capabilities[0].state.relative || false;
-        for (const device in global.devices) {
-          if (global.devices[device].data.id === id) {
-            capabilities = global.devices[device].setState(
-              request.body.payload.devices[i].capabilities[0].state.value,
-              request.body.payload.devices[i].capabilities[0].type,
-              request.body.payload.devices[i].capabilities[0].state.instance,
-              relative);
-          }
-        }
-      } catch (err) {
-        console.log(err);
-      }
-      r.payload.devices.push({ id, capabilities });
-    }
-    console.log(JSON.stringify(r.payload));
-    response.send(r);
-  */
   },
 ];
 
