@@ -73,6 +73,29 @@ module.exports.action = [
         devices: [],
       },
     };
+    request.body.payload.devices.forEach((requestedDevice) => {
+      let capabilities;
+      const id = requestedDevice.id;
+      try {
+        global.devices.forEach((myDevice) => {
+          if (id === myDevice.data.id) {
+            capabilities = myDevice.setState(
+              requestedDevice.capabilities[0].type,
+              requestedDevice.capabilities[0].state.value,
+              requestedDevice.capabilities[0].state.instance,
+              requestedDevice.capabilities[0].state.relative || false,
+            );
+          }
+        });
+      } catch (err) {
+        console.log(err);
+      }
+      r.payload.devices.push({ id, capabilities });
+    });
+    console.log(JSON.stringify(r.payload));
+    response.status(200);
+    response.send(r);
+  /*
     for (const i in request.body.payload.devices) {
       const id = request.body.payload.devices[i].id;
       let relative;
@@ -95,6 +118,7 @@ module.exports.action = [
     }
     console.log(JSON.stringify(r.payload));
     response.send(r);
+  */
   },
 ];
 
