@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 'use strict';
 
 const express = require('express');
@@ -96,12 +97,12 @@ global.devices.forEach((device) => {
   if (Array.isArray(device.data.capabilities) && device.data.capabilities.length) {
     device.data.capabilities.forEach((cap) => {
       console.log(JSON.stringify(cap));
-      let statType = false;
-      let statTopic = false;
-      if (cap.retrievable) {
-        statType = cap.type;
-        statTopic = `${prefix + deviceId}/out/${cap.type}/${cap.instance}`;
-      }
+//      let statType = false;
+//      let statTopic = false;
+//      if (cap.retrievable) {
+      const statType = cap.type;
+      const statTopic = `${prefix + deviceId}/out/${cap.type}/${cap.instance}`;
+//      }
       if (statType && statTopic) {
         statPairs.push({
           deviceId,
