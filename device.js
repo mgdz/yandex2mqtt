@@ -7,9 +7,10 @@ class device {
       description: options.description || '',
       room: options.room || '',
       type: options.type || 'devices.types.light',
-      custom_data: {
+/*      custom_data: {
         mqtt: options.mqtt || [{}],
       },
+*/
       capabilities: options.capabilities,
       properties: options.properties,
     };
@@ -95,10 +96,12 @@ class device {
 
   // setState(id, val, type, inst, rel) {
   setState(type, value, instance, isRelative) {
-    let int;
-    let topic;
+    let val;
+    const id = this.data.id;
+    const prefix = 'dev/yandex/'; // FIXME! stub
+    let topic = `${prefix + id}/`;
     try {
-      int = JSON.stringify(value);
+      val = JSON.stringify(value);
       this.data.capabilities[
         this.findDevIndex(this.data.capabilities, type)]
         .state.instance = instance;
@@ -110,9 +113,11 @@ class device {
           this.findDevIndex(this.data.custom_data.mqtt, instance)]
           .set}/relative` || false;
       } else {
-        topic = this.data.custom_data.mqtt[
+        topic = `${topic + type + instance}/set`; // !FIXME! stub
+/*        topic = this.data.custom_data.mqtt[
           this.findDevIndex(this.data.custom_data.mqtt, instance)]
           .set || false;
+*/
       }
     } catch (err) {
       topic = false;
@@ -120,7 +125,7 @@ class device {
     }
 
     if (topic) {
-      this.client.publish(topic, int);
+      this.client.publish(topic, val);
     }
     return [
       {
