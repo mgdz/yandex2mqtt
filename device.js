@@ -7,10 +7,10 @@ class device {
       description: options.description || '',
       room: options.room || '',
       type: options.type || 'devices.types.light',
-/*      custom_data: {
+      custom_data: {
         mqtt: options.mqtt || [{}],
       },
-*/
+
       capabilities: options.capabilities,
       properties: options.properties,
     };
