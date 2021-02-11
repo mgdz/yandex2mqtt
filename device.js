@@ -113,7 +113,7 @@ class device {
           this.findDevIndex(this.data.custom_data.mqtt, instance)]
           .set}/relative` || false;
       } else {
-        topic = `${topic + type + instance}/set`; // !FIXME! stub
+        topic = `${topic + type}/${instance}`; // !FIXME! stub
 /*        topic = this.data.custom_data.mqtt[
           this.findDevIndex(this.data.custom_data.mqtt, instance)]
           .set || false;
