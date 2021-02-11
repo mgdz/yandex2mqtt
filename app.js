@@ -125,6 +125,7 @@ global.devices.forEach((device) => {
   });
 */
 });
+console.log(JSON.stringify(statPairs));
 
 if (statPairs) {
   client.on('connect', () => {
