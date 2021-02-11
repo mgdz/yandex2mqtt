@@ -92,7 +92,7 @@ const statPairs = [];
 
 global.devices.forEach((device) => {
   const deviceId = device.data.id;
-  const prefix = 'dev/yandex/'; // FIXME! stub
+  const prefix = 'dev/yandex/out/'; // FIXME! stub
   device.client = client;
   if (Array.isArray(device.data.capabilities) && device.data.capabilities.length) {
     device.data.capabilities.forEach((cap) => {
@@ -101,7 +101,7 @@ global.devices.forEach((device) => {
       let statTopic = false;
       if (cap.retrievable) {
         statType = cap.type;
-        statTopic = `${prefix + deviceId}/out/${cap.type}/${cap.state.instance}`;
+        statTopic = `${prefix + deviceId}/${cap.type}/${cap.state.instance}`;
       }
       if (statType && statTopic) {
         statPairs.push({
