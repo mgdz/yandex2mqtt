@@ -98,8 +98,8 @@ class device {
   setState(type, value, instance, isRelative) {
     let val;
     const deviceId = this.data.id;
-    const prefix = `dev/yandex/${deviceId}/in/`; // FIXME! stub
-    let topic = `${prefix + deviceId}/`;
+    const prefix = 'dev/yandex/'; // FIXME! stub
+    let topic = `${prefix + deviceId}/in/`;
     try {
       val = JSON.stringify(value);
       this.data.capabilities[
