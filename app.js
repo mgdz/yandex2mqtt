@@ -97,12 +97,12 @@ global.devices.forEach((device) => {
   if (Array.isArray(device.data.capabilities) && device.data.capabilities.length) {
     device.data.capabilities.forEach((cap) => {
       console.log(JSON.stringify(cap));
-//      let statType = false;
-//      let statTopic = false;
-//      if (cap.retrievable) {
-      const statType = cap.type;
-      const statTopic = `${prefix + deviceId}/out/${cap.type}/${cap.state.instance}`;
-//      }
+      let statType = false;
+      let statTopic = false;
+      if (cap.retrievable) {
+        statType = cap.type;
+        statTopic = `${prefix + deviceId}/out/${cap.type}/${cap.state.instance}`;
+      }
       if (statType && statTopic) {
         statPairs.push({
           deviceId,
@@ -112,18 +112,6 @@ global.devices.forEach((device) => {
       }
     });
   }
-/*  device.data.custom_data.mqtt.forEach(mqtt => {
-    const statType = mqtt.type || false;
-    const statTopic = mqtt.stat || false;
-    if (statTopic && statType) {
-      statPairs.push({
-        deviceId: device.data.id,
-        topic: statTopic,
-        topicType: statType,
-      });
-    }
-  });
-*/
 });
 console.log(JSON.stringify(statPairs));
 
@@ -131,14 +119,11 @@ if (statPairs) {
   client.on('connect', () => {
     client.subscribe(statPairs.map(pair => pair.topic));
     client.on('message', (topic, message) => {
-      
       const matchedDeviceId = statPairs.findIndex(pair => topic.toLowerCase() === pair.topic.toLowerCase());
-      console.log(matchedDeviceId);
-      if (matchedDeviceId == -1) return;
+      if (matchedDeviceId === -1) return;
 
-      const device = global.devices.find(device => device.data.id == statPairs[matchedDeviceId].deviceId);
+      const device = global.devices.find((device) => device.data.id === statPairs[matchedDeviceId].deviceId);
       var devindx;
-      console.log(statPairs[matchedDeviceId].topicType);
       switch (statPairs[matchedDeviceId].topicType) {
         case 'on':
           try {
