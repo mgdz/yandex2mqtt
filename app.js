@@ -101,7 +101,7 @@ global.devices.forEach((device) => {
 //      let statTopic = false;
 //      if (cap.retrievable) {
       const statType = cap.type;
-      const statTopic = `${prefix + deviceId}/out/${cap.type}/${cap.instance}`;
+      const statTopic = `${prefix + deviceId}/out/${cap.type}/${cap.state.instance}`;
 //      }
       if (statType && statTopic) {
         statPairs.push({
