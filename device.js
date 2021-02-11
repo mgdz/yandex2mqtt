@@ -100,7 +100,7 @@ class device {
     let val;
     const deviceId = this.data.id;
     const prefix = 'dev/yandex/in/'; // FIXME! stub
-    let topic = `${prefix + deviceId}`;
+    let topic = `${prefix + deviceId}/`;
     try {
       val = JSON.stringify(value);
       this.data.capabilities[

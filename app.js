@@ -119,7 +119,7 @@ if (statPairs) {
   client.on('connect', () => {
     client.subscribe(statPairs.map(pair => pair.topic));
     client.on('message', (topic, message) => {
-      const matchedDeviceId = statPairs.findIndex(pair => topic.toLowerCase() === pair.topic.toLowerCase());
+      const matchedDeviceId = statPairs.findIndex(pair => topic === pair.topic);
       if (matchedDeviceId === -1) return;
 
       const device = global.devices.find((device) => device.data.id === statPairs[matchedDeviceId].deviceId);
