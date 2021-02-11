@@ -99,10 +99,10 @@ global.devices.forEach((device) => {
       console.log(JSON.stringify(cap));
       let statType = false;
       let statTopic = false;
-      if (cap.retrievable) {
-        statType = cap.type;
-        statTopic = `${prefix + deviceId}/${cap.type}/${cap.state.instance}`;
-      }
+//      if (cap.retrievable) {
+      statType = cap.type;
+      statTopic = `${prefix + deviceId}/${cap.type}/${cap.state.instance}`;
+//      }
       if (statType && statTopic) {
         statPairs.push({
           deviceId,
