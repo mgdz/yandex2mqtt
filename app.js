@@ -90,24 +90,33 @@ function findDevIndex(arr, elem) {
 
 const statPairs = [];
 
+// !!
 global.devices.forEach((device) => {
   const deviceId = device.data.id;
   const prefix = 'dev/yandex/out/'; // FIXME! stub
   device.client = client;
   if (Array.isArray(device.data.capabilities) && device.data.capabilities.length) {
-    device.data.capabilities.forEach((cap) => {
-      console.log(JSON.stringify(cap));
-      let statType = false;
-      let statTopic = false;
-//      if (cap.retrievable) {
-      statType = cap.type;
-      statTopic = `${prefix + deviceId}/${cap.type}/${cap.state.instance}`;
-//      }
-      if (statType && statTopic) {
+    device.data.capabilities.forEach((capability) => {
+      console.log(JSON.stringify(capability));
+      if (capability.retrievable) {
+        const statTopic = `${prefix + deviceId}/${capability.type}/${capability.state.instance}`;
         statPairs.push({
           deviceId,
           topic: statTopic,
-          topicType: statType,
+          capability,
+        });
+      }
+    });
+  }
+  if (Array.isArray(device.data.properties) && device.data.properties.length) {
+    device.data.properties.forEach((property) => {
+      console.log(JSON.stringify(property));
+      if (property.retrievable) {
+        const statTopic = `${prefix + deviceId}/${property.type}/${property.state.instance}`;
+        statPairs.push({
+          deviceId,
+          topic: statTopic,
+          property,
         });
       }
     });
@@ -225,6 +234,7 @@ if (statPairs) {
           }
           break;
         default:
+          // if ()
           console.log('Unknown topic Type: ' + statPairs[matchedDeviceId].topicType);
       }
     });
