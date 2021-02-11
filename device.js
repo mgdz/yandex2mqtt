@@ -98,7 +98,7 @@ class device {
   setState(type, value, instance, isRelative) {
     let val;
     const id = this.data.id;
-    const prefix = 'dev/yandex/'; // FIXME! stub
+    const prefix = 'dev/yandex/in/'; // FIXME! stub
     let topic = `${prefix + id}/`;
     try {
       val = JSON.stringify(value);
@@ -109,9 +109,11 @@ class device {
         this.findDevIndex(this.data.capabilities, type)]
         .state.value = value;
       if (isRelative) {
-        topic = `${this.data.custom_data.mqtt[
+/*        topic = `${this.data.custom_data.mqtt[
           this.findDevIndex(this.data.custom_data.mqtt, instance)]
           .set}/relative` || false;
+*/
+        topic = `${topic + type}/relative/${instance}`; // !FIXME! stub
       } else {
         topic = `${topic + type}/${instance}`; // !FIXME! stub
 /*        topic = this.data.custom_data.mqtt[

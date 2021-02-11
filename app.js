@@ -89,9 +89,28 @@ function findDevIndex(arr, elem) {
 
 const statPairs = [];
 
-global.devices.forEach(device => {
+global.devices.forEach((device) => {
+  const prefix = 'dev/yandex/out/'; // FIXME! stub
+  const deviceId = device.data.id;
   device.client = client;
-  device.data.custom_data.mqtt.forEach(mqtt => {
+  if (Array.isArray(device.data.capabilities) && device.data.capabilities.length) {
+    device.data.capabilities.forEach((cap) => {
+      let statType = false;
+      let statTopic = false;
+      if (cap.retrievable) {
+        statType = cap.type;
+        statTopic = `${prefix + deviceId}/${cap.type}/${cap.instance}`;
+      }
+      if (statType && statTopic) {
+        statPairs.push({
+          deviceId,
+          topic: statTopic,
+          topicType: statType,
+        });
+      }
+    });
+  }
+/*  device.data.custom_data.mqtt.forEach(mqtt => {
     const statType = mqtt.type || false;
     const statTopic = mqtt.stat || false;
     if (statTopic && statType) {
@@ -102,6 +121,7 @@ global.devices.forEach(device => {
       });
     }
   });
+*/
 });
 
 if (statPairs) {
