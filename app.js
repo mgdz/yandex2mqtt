@@ -90,7 +90,7 @@ function findDevIndex(arr, elem) {
 const statPairs = [];
 
 global.devices.forEach((device) => {
-  const prefix = 'dev/yandex/out/'; // FIXME! stub
+  const prefix = `dev/yandex/${deviceId}/out/`; // FIXME! stub
   const deviceId = device.data.id;
   device.client = client;
   if (Array.isArray(device.data.capabilities) && device.data.capabilities.length) {
