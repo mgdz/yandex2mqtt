@@ -95,6 +95,7 @@ global.devices.forEach((device) => {
   device.client = client;
   if (Array.isArray(device.data.capabilities) && device.data.capabilities.length) {
     device.data.capabilities.forEach((cap) => {
+      console.log(JSON.stringify(cap));
       let statType = false;
       let statTopic = false;
       if (cap.retrievable) {
