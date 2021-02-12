@@ -130,7 +130,23 @@ if (statPairs) {
     client.on('message', (topic, message) => {
       const matchedDeviceId = statPairs.findIndex(pair => topic === pair.topic);
       if (matchedDeviceId === -1) return;
-
+      global.devices.forEach((device) => {
+        if (device.data.id === statPairs[matchedDeviceId].deviceId) {
+          if (statPairs[matchedDeviceId].capability) {
+            //
+            const capability = device.data.capabilities.find(c => c.type === statPairs[matchedDeviceId].capability.type);
+            device.data.capabilities[capability].state.instance = statPairs[matchedDeviceId].topicType;
+            device.data.capabilities[capability].state.value = JSON.parse(message);
+          }
+          if (statPairs[matchedDeviceId].property) {
+            //
+            const property = device.data.properties.find(p => p.type === statPairs[matchedDeviceId].property.type);
+            device.data.properties[property].state.instance = statPairs[matchedDeviceId].topicType;
+            device.data.properties[property].state.value = JSON.parse(message);
+          }
+        }
+      });
+/*
       const device = global.devices.find((device) => device.data.id === statPairs[matchedDeviceId].deviceId);
       var devindx;
       switch (statPairs[matchedDeviceId].topicType) {
@@ -234,9 +250,8 @@ if (statPairs) {
           }
           break;
         default:
-          // if ()
           console.log('Unknown topic Type: ' + statPairs[matchedDeviceId].topicType);
-      }
+      } */
     });
   });
 
