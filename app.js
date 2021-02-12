@@ -118,7 +118,7 @@ global.devices.forEach((device) => {
       if (property.retrievable) {
         const statTopic = `${prefix + deviceId}/${property.type}/${property.state.instance}`;
         const statType = property.type;
-        const statInstance = property.type.instance;
+        const statInstance = property.state.instance;
         statPairs.push({
           deviceId,
           type: statType,
