@@ -148,9 +148,14 @@ if (statPairs) {
           }
           if (statPairs[matchedDeviceId].property) {
             console.log('PROPERTY');
-            const property = device.data.properties.findIndex(p => p.type === statPairs[matchedDeviceId].property.type);
-            device.data.properties[property].state.instance = statPairs[matchedDeviceId].instance;
-            device.data.properties[property].state.value = JSON.parse(message);
+            device.data.properties.forEach((property, idx, self) => {
+              if (property.state.instance === statPairs[matchedDeviceId].instance) {
+                self[idx].state.value = JSON.parse(message);
+              }
+            });
+//            const property = device.data.properties.instance.findIndex(p => p.type === statPairs[matchedDeviceId].property.type);
+//            device.data.properties[property].state.instance = statPairs[matchedDeviceId].instance;
+//            device.data.properties[property].state.value = JSON.parse(message);
             console.log(JSON.stringify(device.data));
           }
         }
