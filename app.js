@@ -140,17 +140,14 @@ if (statPairs) {
       if (matchedDeviceId === -1) return;
       global.devices.forEach((device) => {
         if (device.data.id === statPairs[matchedDeviceId].deviceId) {
+          console.log(statPairs[matchedDeviceId]);
           if (statPairs[matchedDeviceId].capability) {
-            //
-            console.log(JSON.stringify(statPairs[matchedDeviceId]));
             const capability = device.data.capabilities.findIndex(c => c.type === statPairs[matchedDeviceId].capability.type);
             device.data.capabilities[capability].state.instance = statPairs[matchedDeviceId].instance;
             device.data.capabilities[capability].state.value = JSON.parse(message);
           }
           if (statPairs[matchedDeviceId].property) {
-            //
-            console.log(JSON.stringify(statPairs[matchedDeviceId]));
-            const property = device.data.properties.find(p => p.type === statPairs[matchedDeviceId].property.type);
+            const property = device.data.properties.findIndex(p => p.type === statPairs[matchedDeviceId].property.type);
             device.data.properties[property].state.instance = statPairs[matchedDeviceId].instance;
             device.data.properties[property].state.value = JSON.parse(message);
           }
