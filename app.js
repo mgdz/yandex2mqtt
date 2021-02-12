@@ -139,7 +139,7 @@ if (statPairs) {
           if (statPairs[matchedDeviceId].capability) {
             //
             console.log(JSON.stringify(statPairs[matchedDeviceId]));
-            const capability = device.data.capabilities.find(c => c.type === statPairs[matchedDeviceId].capability.type);
+            const capability = device.data.capabilities.findIndex(c => c.type === statPairs[matchedDeviceId].capability.type);
             device.data.capabilities[capability].state.instance = statPairs[matchedDeviceId].type;
             device.data.capabilities[capability].state.value = JSON.parse(message);
           }
