@@ -82,7 +82,6 @@ global.devices.forEach((device) => {
   device.client = client;
   if (Array.isArray(device.data.capabilities) && device.data.capabilities.length) {
     device.data.capabilities.forEach((capability) => {
-      console.log(JSON.stringify(capability));
       if (capability.retrievable) {
         const statTopic = `${prefix + deviceId}/${capability.type}/${capability.state.instance}`;
         statPairs.push({
@@ -95,7 +94,6 @@ global.devices.forEach((device) => {
   }
   if (Array.isArray(device.data.properties) && device.data.properties.length) {
     device.data.properties.forEach((property) => {
-      console.log(JSON.stringify(property));
       if (property.retrievable) {
         const statTopic = `${prefix + deviceId}/${property.type}/${property.state.instance}`;
         statPairs.push({
@@ -107,7 +105,6 @@ global.devices.forEach((device) => {
     });
   }
 });
-// console.log(JSON.stringify(statPairs));
 
 if (statPairs) {
   client.on('connect', () => {
@@ -117,7 +114,6 @@ if (statPairs) {
       if (matchedDeviceId === -1) return;
       global.devices.forEach((device) => {
         if (device.data.id === statPairs[matchedDeviceId].deviceId) {
-          console.log(statPairs[matchedDeviceId]);
           if (statPairs[matchedDeviceId].capability) {
             device.data.capabilities.forEach((capability, i) => {
               if (capability.state.instance === statPairs[matchedDeviceId].capability.state.instance) {
@@ -131,7 +127,6 @@ if (statPairs) {
                 device.data.properties[i].state.value = JSON.parse(message);
               }
             });
-            console.log(JSON.stringify(device.data));
           }
         }
       });
