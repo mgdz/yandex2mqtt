@@ -100,8 +100,10 @@ global.devices.forEach((device) => {
       console.log(JSON.stringify(capability));
       if (capability.retrievable) {
         const statTopic = `${prefix + deviceId}/${capability.type}/${capability.state.instance}`;
+        const statType = capability.type;
         statPairs.push({
           deviceId,
+          type: statType,
           topic: statTopic,
           capability,
         });
@@ -113,8 +115,10 @@ global.devices.forEach((device) => {
       console.log(JSON.stringify(property));
       if (property.retrievable) {
         const statTopic = `${prefix + deviceId}/${property.type}/${property.state.instance}`;
+        const statType = property.type;
         statPairs.push({
           deviceId,
+          type: statType,
           topic: statTopic,
           property,
         });
