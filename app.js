@@ -149,8 +149,9 @@ if (statPairs) {
           if (statPairs[matchedDeviceId].property) {
             console.log('PROPERTY');
             device.data.properties.forEach((property, i) => {
+              console.log(property);
               if (property.state.instance === statPairs[matchedDeviceId].instance) {
-                console.log(property);
+                
                 device.data.properties[i].state.value = JSON.parse(message);
               }
             })
