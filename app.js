@@ -147,6 +147,7 @@ if (statPairs) {
             device.data.capabilities[capability].state.value = JSON.parse(message);
           }
           if (statPairs[matchedDeviceId].property) {
+            console.log('PROPERTY');
             const property = device.data.properties.findIndex(p => p.type === statPairs[matchedDeviceId].property.type);
             device.data.properties[property].state.instance = statPairs[matchedDeviceId].instance;
             device.data.properties[property].state.value = JSON.parse(message);
