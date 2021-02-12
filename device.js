@@ -7,41 +7,34 @@ class device {
       description: options.description || '',
       room: options.room || '',
       type: options.type || 'devices.types.light',
-/*
-      custom_data: {
-        mqtt: options.mqtt || [{}],
-      },
-*/
       capabilities: options.capabilities,
       properties: options.properties,
     };
     global.devices.push(this);
   }
 
-  // !!!FIXME!!!
-  //
   getInfo() {
     const properties = [];
     const capabilities = [];
     if (Array.isArray(this.data.properties) && this.data.properties.length) {
-      for (let i in this.data.properties) {
+      this.data.properties.forEach((p) => {
         const property = {
-          type: this.data.properties[i].type,
-          retrievable: this.data.properties[i].retrievable,
-          parameters: this.data.properties[i].parameters,
+          type: p.type,
+          retrievable: p.retrievable,
+          parameters: p.parameters,
         };
         properties.push(property);
-      }
+      });
     }
     if (Array.isArray(this.data.capabilities) && this.data.capabilities.length) {
-      for (let i in this.data.capabilities) {
+      this.data.capabilities.forEach((c) => {
         const capability = {
-          type: this.data.capabilities[i].type,
-          retrievable: this.data.capabilities[i].retrievable,
-          parameters: this.data.capabilities[i].parameters,
+          type: c.type,
+          retrievable: c.retrievable,
+          parameters: c.parameters,
         };
         capabilities.push(capability);
-      }
+      });
     }
     this.deviceInfo = {
       id: this.data.id,
@@ -49,7 +42,6 @@ class device {
       description: this.data.description,
       room: this.data.room,
       type: this.data.type,
-//      custom_data: this.data.custom_data,
       capabilities,
       properties,
     };
@@ -61,22 +53,22 @@ class device {
     const properties = [];
     const capabilities = [];
     if (Array.isArray(this.data.properties) && this.data.properties.length) {
-      for (let i in this.data.properties) {
+      this.data.properties.forEach((p) => {
         const property = {
-          type: this.data.properties[i].type,
-          state: this.data.properties[i].state,
+          type: p.type,
+          state: p.state,
         };
         properties.push(property);
-      }
+      });
     }
     if (Array.isArray(this.data.capabilities) && this.data.capabilities.length) {
-      for (let i in this.data.capabilities) {
+      this.data.capabilities.forEach((c) => {
         const capability = {
-          type: this.data.capabilities[i].type,
-          state: this.data.capabilities[i].state,
+          type: c.type,
+          state: c.state,
         };
         capabilities.push(capability);
-      }
+      });
     }
     this.s = {
       id: this.data.id,
@@ -86,7 +78,7 @@ class device {
     return this.s;
   }
 
-  findDevIndex(arr, elem) {
+/*  findDevIndex(arr, elem) {
     for (let i = 0; i < arr.length; i++) {
       if (arr[i].type === elem) {
         return i;
@@ -94,6 +86,7 @@ class device {
     }
     return false;
   }
+*/
 
   // setState(id, val, type, inst, rel) {
   setState(type, value, instance, isRelative) {
@@ -103,30 +96,26 @@ class device {
     let topic = `${prefix + deviceId}/`;
     try {
       val = JSON.stringify(value);
-      this.data.capabilities[
-        this.findDevIndex(this.data.capabilities, type)]
-        .state.instance = instance;
-      this.data.capabilities[
-        this.findDevIndex(this.data.capabilities, type)]
-        .state.value = value;
+      this.data.capabilities.forEach((c, i) => {
+        if (c.state.instance === instance) {
+          this.data.capabilities[i].state.value = value;
+        }
+      });
+//      this.data.capabilities[
+//        this.findDevIndex(this.data.capabilities, type)]
+//        .state.instance = instance;
+//      this.data.capabilities[
+//        this.findDevIndex(this.data.capabilities, type)]
+//        .state.value = value;
       if (isRelative) {
-/*        topic = `${this.data.custom_data.mqtt[
-          this.findDevIndex(this.data.custom_data.mqtt, instance)]
-          .set}/relative` || false;
-*/
         topic = `${topic + type}/relative/${instance}`; // !FIXME! stub
       } else {
         topic = `${topic + type}/${instance}`; // !FIXME! stub
-/*        topic = this.data.custom_data.mqtt[
-          this.findDevIndex(this.data.custom_data.mqtt, instance)]
-          .set || false;
-*/
       }
     } catch (err) {
       topic = false;
       console.log(err);
     }
-
     if (topic) {
       this.client.publish(topic, val);
     }
