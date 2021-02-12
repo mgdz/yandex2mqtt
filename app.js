@@ -150,6 +150,7 @@ if (statPairs) {
             console.log('PROPERTY');
             device.data.properties.forEach((property, i) => {
               console.log(property);
+              console.log(statPairs[matchedDeviceId].instance);
               if (property.state.instance === statPairs[matchedDeviceId].instance) {
                 
                 device.data.properties[i].state.value = JSON.parse(message);
