@@ -134,6 +134,7 @@ if (statPairs) {
         if (device.data.id === statPairs[matchedDeviceId].deviceId) {
           if (statPairs[matchedDeviceId].capability) {
             //
+            console.log(JSON.stringify(statPairs[matchedDeviceId]));
             const capability = device.data.capabilities.find(c => c.type === statPairs[matchedDeviceId].capability.type);
             device.data.capabilities[capability].state.instance = statPairs[matchedDeviceId].topicType;
             device.data.capabilities[capability].state.value = JSON.parse(message);
