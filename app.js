@@ -101,9 +101,11 @@ global.devices.forEach((device) => {
       if (capability.retrievable) {
         const statTopic = `${prefix + deviceId}/${capability.type}/${capability.state.instance}`;
         const statType = capability.type;
+        const statInstance = capability.state.instance;
         statPairs.push({
           deviceId,
           type: statType,
+          instance: statInstance,
           topic: statTopic,
           capability,
         });
@@ -140,7 +142,7 @@ if (statPairs) {
             //
             console.log(JSON.stringify(statPairs[matchedDeviceId]));
             const capability = device.data.capabilities.findIndex(c => c.type === statPairs[matchedDeviceId].capability.type);
-            device.data.capabilities[capability].state.instance = statPairs[matchedDeviceId].type;
+            device.data.capabilities[capability].state.instance = statPairs[matchedDeviceId].instance;
             device.data.capabilities[capability].state.value = JSON.parse(message);
           }
           if (statPairs[matchedDeviceId].property) {
