@@ -78,12 +78,12 @@ const statPairs = [];
 // !!
 global.devices.forEach((device) => {
   const deviceId = device.data.id;
-  const prefix = 'dev/yandex/out/'; // FIXME! stub
+  const prefix = config.mqtt.prefix || 'dev/yandex/'; // FIXME! stub
   device.client = client;
   if (Array.isArray(device.data.capabilities) && device.data.capabilities.length) {
     device.data.capabilities.forEach((capability) => {
       if (capability.retrievable) {
-        const statTopic = `${prefix + deviceId}/${capability.type}/${capability.state.instance}`;
+        const statTopic = `${prefix}out/${deviceId}/${capability.type}/${capability.state.instance}`;
         statPairs.push({
           deviceId,
           topic: statTopic,

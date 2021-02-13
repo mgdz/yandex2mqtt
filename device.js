@@ -1,4 +1,6 @@
 /* eslint-disable no-console */
+const config = require('./config');
+
 class device {
   constructor(options) {
     this.data = {
@@ -48,7 +50,6 @@ class device {
     return this.deviceInfo;
   }
 
-// !!!FIXME!!!
   getState() {
     const properties = [];
     const capabilities = [];
@@ -78,22 +79,12 @@ class device {
     return this.s;
   }
 
-/*  findDevIndex(arr, elem) {
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i].type === elem) {
-        return i;
-      }
-    }
-    return false;
-  }
-*/
 
-  // setState(id, val, type, inst, rel) {
   setState(type, value, instance, isRelative) {
     let val;
     const deviceId = this.data.id;
-    const prefix = 'dev/yandex/in/'; // FIXME! stub
-    let topic = `${prefix + deviceId}/`;
+    const prefix = config.mqtt.prefix || 'dev/yandex/'; // FIXME! stub
+    let topic = `${prefix}in/${deviceId}/`;
     try {
       val = JSON.stringify(value);
       this.data.capabilities.forEach((c, i) => {
@@ -101,16 +92,10 @@ class device {
           this.data.capabilities[i].state.value = value;
         }
       });
-//      this.data.capabilities[
-//        this.findDevIndex(this.data.capabilities, type)]
-//        .state.instance = instance;
-//      this.data.capabilities[
-//        this.findDevIndex(this.data.capabilities, type)]
-//        .state.value = value;
       if (isRelative) {
-        topic = `${topic + type}/relative/${instance}`; // !FIXME! stub
+        topic = `${topic + type}/relative/${instance}`;
       } else {
-        topic = `${topic + type}/${instance}`; // !FIXME! stub
+        topic = `${topic + type}/${instance}`;
       }
     } catch (err) {
       topic = false;

@@ -5,13 +5,9 @@ module.exports = {
     port: 1883,
     user: '',
     password: '',
+    prefix: 'dev/yandex/',
   },
 
-    //    https: {
-    //        privateKey: '/mnt/data/root/node-key2.pem',
-    //        certificate: '/mnt/data/root/munrexio.crt',
-    //        port: 443
-    //    },
   http: {
     host: '127.0.0.1',
     port: 1800,
@@ -33,12 +29,6 @@ module.exports = {
     password: 'admin',
     name: 'Administrator',
   },
- /* {
-    id: '2',
-    username: 'root',
-    password: 'root',
-    name: 'Administrator',
-  },*/
   ],
 
   devices: [
@@ -48,15 +38,6 @@ module.exports = {
       name: 'Лампочка',
       room: 'Мастерская',
       type: 'devices.types.light',
-/*      mqtt: [
-        {
-          type: 'on',
-          set: 'dev/yandex/1/command/light/power',
-          stat: 'dev/yandex/1/state/light/power',
-        },
-
-      ],
-*/
       capabilities: [
         {
           type: 'devices.capabilities.on_off',
@@ -76,28 +57,6 @@ module.exports = {
     //   name: 'Телевизор',
     //   room: 'Комната',
     //   type: 'devices.types.media_device.tv',
-    //   mqtt: [
-    //     {
-    //       type: 'on',
-    //       set: '/devices/yandex/controls/light6/on',
-    //       stat: '/devices/yandex/controls/light6',
-    //     },
-    //     {
-    //       type: 'mute',
-    //       set: '/devices/yandex/controls/light2/on',
-    //       stat: '/devices/yandex/controls/light2',
-    //     },
-    //     {
-    //       type: 'volume',
-    //       set: '/devices/yandex/controls/light7/on',
-    //       stat: '/devices/yandex/controls/light7',
-    //     },
-    //     {
-    //       type: 'channel',
-    //       set: '/devices/yandex/controls/light8/on',
-    //       stat: '/devices/yandex/controls/light8',
-    //     },
-    //   ],
     //   capabilities: [
     //     {
     //       type: 'devices.capabilities.on_off',
@@ -159,28 +118,6 @@ module.exports = {
     //   name: 'Кондиционер',
     //   room: 'Комната',
     //   type: 'devices.types.thermostat.ac',
-    //   mqtt: [
-    //     {
-    //       type: 'on',
-    //       set: '/devices/yandex/controls/light9/on',
-    //       stat: '/devices/yandex/controls/light9',
-    //     },
-    //     {
-    //       type: 'temperature',
-    //       set: '/devices/yandex/controls/light10/on',
-    //       stat: '/devices/yandex/controls/light10',
-    //     },
-    //     {
-    //       type: 'thermostat',
-    //       set: '/devices/yandex/controls/light11/on',
-    //       stat: '/devices/yandex/controls/light11',
-    //     },
-    //     {
-    //       type: 'fan_speed',
-    //       set: '/devices/yandex/controls/light12/on',
-    //       stat: '/devices/yandex/controls/light12',
-    //     },
-    //   ],
     //   capabilities: [
     //     {
     //       type: 'devices.capabilities.on_off',
@@ -274,19 +211,6 @@ module.exports = {
     //   name: 'Лампочка',
     //   room: 'Комната',
     //   type: 'devices.types.light',
-    //   mqtt: [
-    //     {
-    //       type: 'on',
-    //       set: '/devices/yandex/controls/light13/on',
-    //       stat: '/devices/yandex/controls/light13',
-    //     },
-    //     {
-    //       type: 'hsv',
-    //       set: '/devices/yandex/controls/light14/on',
-    //       stat: '/devices/yandex/controls/light14',
-    //     },
-
-    //   ],
     //   capabilities: [
     //     {
     //       type: 'devices.capabilities.on_off',
@@ -318,33 +242,6 @@ module.exports = {
       name: 'сенсор 1',
       room: 'Мастерская',
       type: 'devices.types.light',
-      // TODO: remove mqtt config from device.
-/*      mqtt: [
-        {
-          type: 'temperature',
-          stat: 'dev/yandex/0/state/temperature',
-        },
-        {
-          type: 'humidity',
-          stat: 'dev/yandex/0/state/humidity',
-        },
-        {
-          type: 'battery_level',
-          stat: 'dev/yandex/0/state/battery_level',
-        },
-        {
-          type: 'on',
-          set: 'dev/yandex/0/command/light/power',
-          stat: 'dev/yandex/0/state/light/power',
-        },
-        {
-          type: 'hsv',
-          set: 'dev/yandex/0/command/light/hsv',
-          stat: 'dev/yandex/0/state/light/hsv',
-        },
-
-      ],
-*/
       capabilities: [
         {
           type: 'devices.capabilities.on_off',
@@ -367,7 +264,6 @@ module.exports = {
         },
       ],
 
-//      capabilities: [],
       properties: [{
         type: 'devices.properties.float',
         retrievable: true,
@@ -412,22 +308,6 @@ module.exports = {
       name: 'сенсор 0',
       room: 'Мастерская',
       type: 'devices.types.sensor',
-      // TODO: remove mqtt config from device.
-/*      mqtt: [
-        {
-          type: 'temperature',
-          stat: 'dev/yandex/0/state/temperature',
-        },
-        {
-          type: 'humidity',
-          stat: 'dev/yandex/0/state/humidity',
-        },
-        {
-          type: 'battery_level',
-          stat: 'dev/yandex/0/state/battery_level',
-        },
-      ],
-*/
       capabilities: [],
       properties: [{
         type: 'devices.properties.float',
