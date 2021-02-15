@@ -92,6 +92,7 @@ module.exports.action = [
       }
       r.payload.devices.push({ id, capabilities });
     });
+    console.log(JSON.stringify(r.payload.devices));
     response.status(200);
     response.send(r);
   },
