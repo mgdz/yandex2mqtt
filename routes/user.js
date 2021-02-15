@@ -70,17 +70,21 @@ module.exports.action = [
       },
     };
     request.body.payload.devices.forEach((requestedDevice) => {
-      let capabilities;
+      const capabilities = [];
+      let capability;
       const id = requestedDevice.id;
       try {
         global.devices.forEach((myDevice) => {
           if (id === myDevice.data.id) {
-            capabilities = myDevice.setState(
-              requestedDevice.capabilities[0].type,
-              requestedDevice.capabilities[0].state.value,
-              requestedDevice.capabilities[0].state.instance,
-              requestedDevice.capabilities[0].state.relative || false,
-            );
+            requestedDevice.capabilities.forEach((cap) => {
+              capability = myDevice.setState(
+                cap.type,
+                cap.state.value,
+                cap.state.instance,
+                cap.state.relative || false,
+              );
+              capabilities.push(capability);
+            });
           }
         });
       } catch (err) {
