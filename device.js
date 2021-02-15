@@ -104,17 +104,17 @@ class device {
     if (topic) {
       this.client.publish(topic, val);
     }
-    return [
-      {
-        type,
-        state: {
-          instance,
-          action_result: {
-            status: 'DONE',
-          },
+    // TODO - return result depend on client.publish(?)
+    this.result = {
+      type,
+      state: {
+        instance,
+        action_result: {
+          status: 'DONE',
         },
       },
-    ];
+    };
+    return this.result;
   }
 }
 module.exports = device;
