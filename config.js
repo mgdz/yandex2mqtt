@@ -48,6 +48,12 @@ module.exports = {
           },
         },
       ],
+      device_info: {
+        manufacturer: '',
+        model: '',
+        hw_version: '',
+        sw_version: '',
+      },
     },
          // __________Конец первого устройства__________//
 
