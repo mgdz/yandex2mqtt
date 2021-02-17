@@ -11,6 +11,8 @@ class device {
       type: options.type || 'devices.types.light',
       capabilities: options.capabilities,
       properties: options.properties,
+      // not implemented yet.
+      // device_info: options.device_info,
     };
     global.devices.push(this);
   }
