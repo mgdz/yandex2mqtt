@@ -47,6 +47,7 @@ class device {
       type: this.data.type,
       capabilities,
       properties,
+      device_info: this.data.device_info,
     };
     return this.deviceInfo;
   }
