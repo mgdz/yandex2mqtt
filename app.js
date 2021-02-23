@@ -95,7 +95,7 @@ global.devices.forEach((device) => {
   if (Array.isArray(device.data.properties) && device.data.properties.length) {
     device.data.properties.forEach((property) => {
       if (property.retrievable) {
-        const statTopic = `${prefix + deviceId}/${property.type}/${property.state.instance}`;
+        const statTopic = `${prefix}out/${deviceId}/${property.type}/${property.state.instance}`;
         statPairs.push({
           deviceId,
           topic: statTopic,
