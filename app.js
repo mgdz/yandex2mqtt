@@ -5,7 +5,7 @@ const express = require('express');
 const ejs = require('ejs');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const errorHandler = require('errorhandler');
 const session = require('express-session');
 const passport = require('passport');
@@ -35,10 +35,10 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './views'));
 app.use(express.static('views'));
 app.use(cookieParser());
-app.use(bodyParser.json({
+app.use(express.json({
   extended: false,
 }));
-app.use(bodyParser.urlencoded({
+app.use(express.urlencoded({
   extended: true,
 }));
 app.use(errorHandler());
